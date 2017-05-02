@@ -1,0 +1,27 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http >
+		  <intercept-url pattern="/usuario/**" access="hasRole('ROLE_ADMIN')"/>
+		  <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		  <intercept-url pattern="/login" access="permitAll"/>
+		  <intercept-url pattern="/resourses/**" access="permitAll"/>
+        <form-login  login-page="/login"  />
+
+	</http>
+
+	<b:bean id="userDetailsServiceImpl" class="br.com.fiap.service.UserDetailsServiceImpl" />
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsServiceImpl">
+			<password-encoder hash="md5">
+<!-- 				<salt-source system-wide="cewuiqwzie" /> -->
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+</b:beans>
