@@ -20,13 +20,13 @@ public class UsuarioController {
 	
 	@RequestMapping("/usuario/addForm")
 	public String form(Usuario usuario) {
-		System.out.println("form");
+//		System.out.println("form");
 		return "usuario/addForm";
 	}
 					 
 	@RequestMapping(value="/usuario/add")
 	public String add(Usuario usuario, BindingResult br, RedirectAttributes red) {
-		br.getFieldErrors().forEach(System.out::println);
+//		br.getFieldErrors().forEach(System.out::println);
 		dao.persist(usuario);
 		red.addFlashAttribute("msg", "Usuário incluído com sucesso!");
 		return "redirect:/usuario/list";

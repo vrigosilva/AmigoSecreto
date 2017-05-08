@@ -16,11 +16,6 @@
 	<context:component-scan base-package="br.com.fiap" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:annotation-driven />
-
-<!-- 	<mvc:interceptors> -->
-<!-- 		<bean class="br.com.fiap.interceptor.AutorizadorInterceptor"></bean> -->
-<!-- 	</mvc:interceptors> -->
-	
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,7 +27,7 @@
 <!-- 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" /> -->
 <!-- 		<property name="url" value="jdbc:hsqldb:mem:testdb" /> -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/modelospring" />
+		<property name="url" value="jdbc:mysql://localhost:3306/amigosecreto" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>

@@ -32,8 +32,9 @@ public class EventoController {
 	public String add(Evento evento, BindingResult br, RedirectAttributes red) {
 		br.getFieldErrors().forEach(System.out::println);
 		
-		
-		evento.getParticipantes().add(udao.find(1L));
+		Usuario user = udao.find(1L);
+		user.getEventos().add(evento);
+		evento.getParticipantes().add(user);
 		
 		dao.persist(evento);
 		red.addFlashAttribute("msg", "Falta listar !!!");

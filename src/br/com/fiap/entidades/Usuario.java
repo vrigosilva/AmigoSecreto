@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -23,7 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario implements Serializable,UserDetails{
+public class Usuario implements Serializable, UserDetails{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -48,11 +48,11 @@ public class Usuario implements Serializable,UserDetails{
 	@Column(name="TELEFONE", length=12)
 	private String telefone;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="USUARIO_EVENTO", 
-		joinColumns={@JoinColumn(name="USUARIO_ID",nullable=false,unique=true, updatable=false)},
-		inverseJoinColumns={@JoinColumn(name="EVENTO_ID",nullable=true, unique=true, updatable=false)})
-	private List<Evento> eventos = new ArrayList<>(); 
+	@ManyToMany(mappedBy="participantes", fetch=FetchType.EAGER)
+//	@JoinTable(name="USUARIO_EVENTO", 
+//		joinColumns={@JoinColumn(name="USUARIO_ID", referencedColumnName="ID", nullable=false, updatable=false)},
+//		inverseJoinColumns={@JoinColumn(name="EVENTO_ID", referencedColumnName="ID", nullable=true, updatable=false)})
+	private Set<Evento> eventos = new HashSet<>(); 
 	
 	@OneToMany(fetch=FetchType.EAGER)
 	private List<Permissao> permissoes = new ArrayList<>();
@@ -106,12 +106,13 @@ public class Usuario implements Serializable,UserDetails{
 		this.permissoes = permissoes;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", cpf=" + cpf + ", telefone="
-				+ telefone + ", email=" + email + ", senha=" + senha + "]";
+	public Set<Evento> getEventos() {
+		return eventos;
 	}
+	public void setEventos(Set<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
 
 	// UserDetails - SpringSecurit
 	
@@ -143,6 +144,34 @@ public class Usuario implements Serializable,UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", cpf=" + cpf + ", telefone="
+				+ telefone + ", email=" + email + ", senha=" + senha + "]";
+	}
+	
 	
 }

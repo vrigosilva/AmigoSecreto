@@ -34,7 +34,6 @@
 					<td><form:input path="endereco" /></td>
 					<td><form:errors path="endereco" /></td>
 				</tr>
-				
 			</table>
 			<input type="submit" value="Salvar">
 		</form:form>

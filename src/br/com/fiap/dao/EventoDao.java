@@ -1,6 +1,8 @@
 package br.com.fiap.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,8 +22,11 @@ public class EventoDao {
 	private EntityManager em;
 	
 
-	public void persist(Evento entidade) {
-		em.persist(entidade);
+	public void persist(Evento e) {
+		Set<Usuario> set = new HashSet<>(); 
+		e.getParticipantes().forEach(u-> set.add(em.find(Usuario.class,u.getId())));
+		e.setParticipantes(set);
+		em.persist(e);
 	}
 
 	public void update(Evento entidade) {
