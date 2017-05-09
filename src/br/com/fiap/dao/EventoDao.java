@@ -26,7 +26,13 @@ public class EventoDao {
 		Set<Usuario> set = new HashSet<>(); 
 		e.getParticipantes().forEach(u-> set.add(em.find(Usuario.class,u.getId())));
 		e.setParticipantes(set);
-		em.persist(e);
+		
+		if(e.getId() == null){
+			em.persist(e);
+		}else{
+			em.merge(e);
+		}
+		
 	}
 
 	public void update(Evento entidade) {

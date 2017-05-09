@@ -31,7 +31,7 @@ public class Evento implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="NOME", nullable=false, unique=true, length=100)
 	private String nome;
@@ -43,7 +43,7 @@ public class Evento implements Serializable{
 	private String endereco;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="yyyy-MM-dd") 
+	@DateTimeFormat(pattern="dd/MM/YYYY") 
 	@Column(name="DATA", nullable=false)
 	private Date data;
 	
@@ -53,10 +53,10 @@ public class Evento implements Serializable{
 	inverseJoinColumns={@JoinColumn(name="USUARIO_ID", referencedColumnName="ID", nullable=true, updatable=false)})
 	private Set<Usuario> participantes = new HashSet<>();
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -94,11 +94,29 @@ public class Evento implements Serializable{
 	
 	
 
+
+//	
+//	// propriedades de conveniencia
+//	public void setDataString(String data) {
+//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//		try {
+//			this.setData(df.parse(data));
+//		} catch (Exception e) {
+//			this.setData(new Date());
+//		}
+//	}
+	
+	@Override
+	public String toString() {
+		return "Evento [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", endereco=" + endereco + ", data="
+				+ data + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 	@Override
@@ -110,20 +128,17 @@ public class Evento implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Evento other = (Evento) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
-	}
-	
-	
-	// propriedades de conveniencia
-	public void setDataString(String data) {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			this.setData(df.parse(data));
-		} catch (Exception e) {
-			this.setData(new Date());
-		}
 	}
 	
 	

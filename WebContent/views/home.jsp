@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE>
 <html>
 <head>
@@ -25,11 +26,12 @@
 						<tr>
 							<td>${evento.nome}</td>
 							<td>${evento.descricao}</td>
-							<td>${evento.data}</td>
+							<fmt:formatDate value="${evento.data}" var="dateString" pattern="dd/MM/yyyy" />
+							<td>${dateString}</td>
 							<td class="td-actions" style="width: 10%" >
 							
 								<a href="#" class="btn btn-danger"> <i class="glyphicon glyphicon-trash"></i></a>
-								<a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+								<a href="evento/edit?id=${evento.id }" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
 							</td>
 						</tr>
 					</c:forEach>

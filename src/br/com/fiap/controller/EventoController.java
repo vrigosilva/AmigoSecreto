@@ -41,6 +41,15 @@ public class EventoController {
 		return "redirect:/home";
 	}
 
+	@RequestMapping(value="/evento/edit")
+	public String add(Evento evento, ModelMap map) {
+		evento = dao.find(evento.getId());
+		System.out.println(evento);
+		map.addAttribute("evento", evento);
+		return "evento/addForm";
+	}
+	
+	
 	@RequestMapping("/evento/list")
 	public String list(ModelMap map) {
 		List<Evento> eventos = dao.findAll();
