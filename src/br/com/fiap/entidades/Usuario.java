@@ -2,6 +2,7 @@ package br.com.fiap.entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,7 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,8 +57,9 @@ public class Usuario implements Serializable, UserDetails{
 //		inverseJoinColumns={@JoinColumn(name="EVENTO_ID", referencedColumnName="ID", nullable=true, updatable=false)})
 	private Set<Evento> eventos = new HashSet<>(); 
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Permissao> permissoes = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="PERMISSAO_ID", nullable=false)
+	private Permissao permissao;
 	
 	public Long getId() {
 		return id;
@@ -99,13 +103,13 @@ public class Usuario implements Serializable, UserDetails{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public List<Permissao> getPermissoes() {
-		return permissoes;
-	}
-	public void setPermissoes(List<Permissao> permissoes) {
-		this.permissoes = permissoes;
-	}
 	
+	public Permissao getPermissao() {
+		return permissao;
+	}
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
+	}
 	public Set<Evento> getEventos() {
 		return eventos;
 	}
@@ -118,7 +122,7 @@ public class Usuario implements Serializable, UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.permissoes;
+		return Arrays.asList(permissao);
 	}
 	@Override
 	public String getPassword() {

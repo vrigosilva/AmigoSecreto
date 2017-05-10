@@ -12,6 +12,12 @@ public class Permissao  implements Serializable, GrantedAuthority{
 
 	private static final long serialVersionUID = 1L;
 
+	public Permissao(){}
+	public Permissao(String nome) {
+		super();
+		this.nome = nome;
+	}
+
 	@Id
 	private String nome;
 

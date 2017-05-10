@@ -5,6 +5,7 @@
 
 <div class="header clearfix">
 	<h2 class="text-muted">Amigo Secreto</h2>
+	
  	<nav>
 		
 		<ul class="nav nav-pills pull-left">
@@ -18,8 +19,11 @@
 		</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
+		
 			<li role="presentation">
+			<sec:authorize access="isAuthenticated()"> 
 				<div>Bem Vindo(a): <b><sec:authentication property="principal.nome"/></b></div>
+			</sec:authorize>
 			</li>
 		</ul>
 	</nav>

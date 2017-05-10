@@ -29,7 +29,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/amigosecreto" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="fiap" />
 	</bean>
 	
 	<bean id="entityManagerFactory"	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -46,6 +46,9 @@
 	        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 	        <prop key="hibernate.hbm2ddl.auto">update</prop>
 	        <prop key="hibernate.show_sql">true</prop>
+	        <prop key="hibernate.hbm2ddl.import_files">initial_data.sql</prop>
+	        <prop key="javax.persistence.sql-load-script-source">META_data.sql</prop>
+	        <prop key="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</prop>
 	      </props>
 	    </property>
 	</bean>

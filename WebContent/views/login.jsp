@@ -3,12 +3,12 @@
 <!DOCTYPE html >
 <html>
 <head>
-<title>Modelo Spring</title>
+<title>Amigo Secreto</title>
 </head>
 <body>
 	<div class="container">	
-		<h1>Login</h1>
-		<form:form servletRelativeAction="/login" method="post">
+		<h1>M Login</h1>
+		<form:form servletRelativeAction="/j_spring_security_check" method="post">
 			<table>
 				<tr>
 					<td>E-mail:</td>

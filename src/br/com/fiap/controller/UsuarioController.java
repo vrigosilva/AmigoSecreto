@@ -1,5 +1,6 @@
 package br.com.fiap.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.dao.UsuarioDao;
+import br.com.fiap.entidades.Permissao;
 import br.com.fiap.entidades.Usuario;
 
 @Controller
@@ -27,6 +29,8 @@ public class UsuarioController {
 	@RequestMapping(value="/usuario/add")
 	public String add(Usuario usuario, BindingResult br, RedirectAttributes red) {
 //		br.getFieldErrors().forEach(System.out::println);
+		
+		usuario.setPermissao(new Permissao("ROLE_ADMIN"));
 		dao.persist(usuario);
 		red.addFlashAttribute("msg", "Usuário incluído com sucesso!");
 		return "redirect:/usuario/list";
