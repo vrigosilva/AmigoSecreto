@@ -5,22 +5,22 @@
 						http://www.springframework.org/schema/security 
 						http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http >
-		  <intercept-url pattern="/usuario/add" access="permitAll"/>
-		  <intercept-url pattern="/usuario/addForm" access="permitAll"/>
-		  <intercept-url pattern="/usuario/**" access="hasRole('ROLE_ADMIN')"/>
-		  <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
-		  <intercept-url pattern="/login" access="permitAll"/>
-		  <intercept-url pattern="/resourses/**" access="permitAll"/>
-<!--         <form-login  login-page="/login"   /> -->
+	<http>
+		<intercept-url pattern="/resourses/**" access="permitAll"/>
+		<intercept-url pattern="/loginForm" access="permitAll"/>
+		<intercept-url pattern="/usuario/add" access="permitAll"/>
+		<intercept-url pattern="/usuario/addForm" access="permitAll"/>
+	  	<intercept-url pattern="/usuario/**" access="hasRole('ROLE_ADMIN')"/>
+	  	<intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+
   		<form-login
-		    login-page="/login"
-		    default-target-url="/home"
-			authentication-failure-url="/login?error"
-			username-parameter="username"
-			password-parameter="password" />
+		    login-page="/loginForm"
+		    authentication-failure-url="/login?error"
+		    default-target-url="/home" />
+		
 		<logout logout-success-url="/login?logout" />
- 
+ 		
+ 		<csrf/>
 
 	</http>
 

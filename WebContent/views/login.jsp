@@ -8,7 +8,7 @@
 <body>
 	<div class="container">	
 		<h1>M Login</h1>
-		<form:form servletRelativeAction="/j_spring_security_check" method="post">
+		<form:form servletRelativeAction="/login" method="post">
 			<table>
 				<tr>
 					<td>E-mail:</td>
