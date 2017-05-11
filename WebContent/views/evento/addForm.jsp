@@ -13,7 +13,7 @@
 		<h3>Cadastro de Eventos</h3>
 		
 		<c:url value="/evento/add" var="url" />
-		<form:form   action="${url}" method="post" commandName="evento">
+		<form:form  action="${url}" method="post" commandName="evento">
 			<form:hidden path="id" />
 			<table>
 				<tr>

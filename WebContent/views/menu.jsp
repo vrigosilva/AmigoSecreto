@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <c:url value="/" var="home" />		
 
@@ -23,6 +24,10 @@
 			<li role="presentation">
 			<sec:authorize access="isAuthenticated()"> 
 				<div>Bem Vindo(a): <b><sec:authentication property="principal.nome"/></b></div>
+				<div align="right" style="color: red;"> <b>Sair</b></div>
+				<form:form servletRelativeAction="/logout" method="post">
+  					<input type="submit" value="Sair">
+				</form:form>
 			</sec:authorize>
 			</li>
 		</ul>
