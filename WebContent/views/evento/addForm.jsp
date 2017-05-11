@@ -27,7 +27,7 @@
 					<td><form:errors path="descricao" /></td>
 				</tr>
 				<tr>
-					<td>Data:</td>
+					<td>Data do evento:</td>
 					<fmt:formatDate value="${evento.data}" var="dateString" pattern="dd/MM/yyyy" />
 					<td><input type="text" id="data" name="data" value="${dateString}" placeholder="DD/MM/AAAA" /></td>
 					<td><form:errors path="data" /></td>
@@ -38,6 +38,10 @@
 					<td><form:errors path="endereco" /></td>
 				</tr>
 			</table>
+			
+<%-- 			<form:select path="participantes" items="${userList}"  multiple="true" /> --%>
+			
+			
 			<input type="submit" value="Salvar">
 		</form:form>
 	</div>

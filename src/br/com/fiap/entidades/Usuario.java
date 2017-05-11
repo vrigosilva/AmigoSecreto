@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,12 +53,9 @@ public class Usuario implements Serializable, UserDetails{
 	private String telefone;
 	
 	@ManyToMany(mappedBy="participantes", fetch=FetchType.EAGER)
-//	@JoinTable(name="USUARIO_EVENTO", 
-//		joinColumns={@JoinColumn(name="USUARIO_ID", referencedColumnName="ID", nullable=false, updatable=false)},
-//		inverseJoinColumns={@JoinColumn(name="EVENTO_ID", referencedColumnName="ID", nullable=true, updatable=false)})
 	private Set<Evento> eventos = new HashSet<>(); 
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="PERMISSAO_ID", nullable=false)
 	private Permissao permissao;
 	

@@ -24,7 +24,8 @@ public class EventoController {
 	UsuarioDao udao;
 	
 	@RequestMapping("/evento/addForm")
-	public String form(Evento evento) {
+	public String form(Evento evento, ModelMap map) {
+//		map.addAttribute("userList", udao.findAll());
 		return "evento/addForm";
 	}
 					 
@@ -42,9 +43,8 @@ public class EventoController {
 	}
 
 	@RequestMapping(value="/evento/edit")
-	public String add(Evento evento, ModelMap map) {
+	public String edit(Evento evento, ModelMap map) {
 		evento = dao.find(evento.getId());
-		System.out.println(evento);
 		map.addAttribute("evento", evento);
 		return "evento/addForm";
 	}
