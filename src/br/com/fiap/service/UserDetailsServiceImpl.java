@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 import br.com.fiap.dao.UsuarioDao;
 import br.com.fiap.entidades.Usuario;
 
-@Service
+@Service("userDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UsuarioDao dao;
 	
 	@Override
-	public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
-		Usuario usuario = dao.findByEmail(arg0);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Usuario usuario = dao.findByEmail(email);
 		if(usuario == null)
 			throw new UsernameNotFoundException("Usuario não encontrado!");
 		return usuario;
