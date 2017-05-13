@@ -3,8 +3,10 @@ package br.com.fiap.entidades;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,11 +50,8 @@ public class Evento implements Serializable{
 	@Column(name="DATA", nullable=false)
 	private Date data;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="EVENTO_USUARIO", 
-	joinColumns={@JoinColumn(name="EVENTO_ID", referencedColumnName="ID", nullable=false, updatable=false)},
-	inverseJoinColumns={@JoinColumn(name="USUARIO_ID", referencedColumnName="ID", nullable=true, updatable=false)})
-	private Set<Usuario> participantes = new HashSet<>();
+	@OneToMany(mappedBy="evento")
+	private List<ParticipacaoEvento> participacoes = new ArrayList<>(); 
 	
 	public Long getId() {
 		return id;
@@ -83,16 +83,7 @@ public class Evento implements Serializable{
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Set<Usuario> getParticipantes() {
-		return participantes;
-	}
-	public void setParticipantes(Set<Usuario> participantes) {
-		this.participantes = participantes;
-	}
-	
-	
-	
-	
+
 
 
 //	
@@ -106,6 +97,12 @@ public class Evento implements Serializable{
 //		}
 //	}
 	
+	public List<ParticipacaoEvento> getParticipacoes() {
+		return participacoes;
+	}
+	public void setParticipacoes(List<ParticipacaoEvento> participacoes) {
+		this.participacoes = participacoes;
+	}
 	@Override
 	public String toString() {
 		return "Evento [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", endereco=" + endereco + ", data="

@@ -1,6 +1,5 @@
 package br.com.fiap.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.dao.UsuarioDao;
@@ -41,4 +41,15 @@ public class UsuarioController {
 		List<Usuario> usuarios = dao.findAll();
 		map.addAttribute("usuarios", usuarios);
 		return "/usuario/lista";
-	}}
+	}
+
+
+	@RequestMapping("/usuario/listByEmail")
+	public String listByEmail(String email,ModelMap map) {
+		Usuario usuario = dao.findByEmail(email);
+		map.addAttribute("usuario", usuario);
+		return "/evento/lteste";
+	}
+	
+
+}

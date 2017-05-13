@@ -12,24 +12,6 @@
 
 </head>
 <body>
-<!-- 	<div class="container">	 -->
-<!-- 		<h1>M Login</h1> -->
-<%-- 		<form:form servletRelativeAction="/login" name="f" method="post"> --%>
-<!-- 			<table> -->
-<!-- 				<tr> -->
-<!-- 					<td>E-mail:</td> -->
-<!-- 					<td><input type="text" name="username" ></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td>Senha:</td> -->
-<!-- 					<td><input type="password" name="password" ></td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-<!-- 			<input name="submit" type="submit" value="Login"> -->
-<!-- 			<a href="/usuario/addForm" >Registre-se</a> -->
-<%-- 		</form:form> --%>
-<%-- 		${msg} --%>
-<!-- 	</div> -->
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -49,7 +31,7 @@
 
              <div class="form-group">
                  <input type="submit" type="submit" class="btn btn-block btn-lg btn-primary" value="Logar"/>
-                 <span class="pull-right"><a href="usuario/addForm">Register</a></span><span><a href="#">Forgot Password</a></span>
+                 <span class="pull-right"><a href="usuario/addForm">Cadastre-se</a></span><span><a href="#">Forgot Password</a></span>
              </div>
              </form:form>
          </div>

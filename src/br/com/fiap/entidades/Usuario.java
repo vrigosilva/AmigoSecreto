@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,10 +50,10 @@ public class Usuario implements Serializable, UserDetails{
 	@Column(name="TELEFONE", length=12)
 	private String telefone;
 	
-	@ManyToMany(mappedBy="participantes", fetch=FetchType.EAGER)
-	private Set<Evento> eventos = new HashSet<>(); 
+	@OneToMany(mappedBy="participante")
+	private List<ParticipacaoEvento> participacoes = new ArrayList<>(); 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="PERMISSAO_ID", nullable=false)
 	private Permissao permissao;
 	
@@ -108,16 +106,17 @@ public class Usuario implements Serializable, UserDetails{
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
-	public Set<Evento> getEventos() {
-		return eventos;
-	}
-	public void setEventos(Set<Evento> eventos) {
-		this.eventos = eventos;
-	}
+
 
 
 	// UserDetails - SpringSecurit
 	
+	public List<ParticipacaoEvento> getParticipacoes() {
+		return participacoes;
+	}
+	public void setParticipacoes(List<ParticipacaoEvento> participacoes) {
+		this.participacoes = participacoes;
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Arrays.asList(permissao);

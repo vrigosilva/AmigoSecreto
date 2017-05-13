@@ -6,6 +6,30 @@
 <head>
 	<title>Cadastro de Eventos</title>
 	<%@include  file="../head.jsp" %>
+	
+	<script type="text/javascript">
+	
+	
+		function searchAjax() {
+
+			var emailFilter = $("#emailfilter").prop( "value" );
+		
+			$.get( "${pageContext.request.contextPath}/usuario/listByEmail",{ email: emailFilter } )
+			  
+			.done(function( data ) {
+// 			    alert( "Data Loaded: " + data );
+// 			    console.log("SUCCESS: ", data);
+				$("#tbParticipantes").append(data);
+
+			 })
+			  
+			.fail(function() {
+			  alert( "error" );
+			});
+		
+		}
+	</script>
+	
 </head>
 <body>
 	<div class="container">
@@ -27,7 +51,7 @@
 					<td><form:errors path="descricao" /></td>
 				</tr>
 				<tr>
-					<td>Data do evento:</td>
+					<td>Data:</td>
 					<fmt:formatDate value="${evento.data}" var="dateString" pattern="dd/MM/yyyy" />
 					<td><input type="text" id="data" name="data" value="${dateString}" placeholder="DD/MM/AAAA" /></td>
 					<td><form:errors path="data" /></td>
@@ -38,12 +62,28 @@
 					<td><form:errors path="endereco" /></td>
 				</tr>
 			</table>
-			
-<%-- 			<form:select path="participantes" items="${userList}"  multiple="true" /> --%>
-			
-			
 			<input type="submit" value="Salvar">
 		</form:form>
+			
+			<div onclick="searchAjax()"><i class="glyphicon glyphicon-zoom-in"></i></div>
+			<input type="text" id="emailfilter" name="emailfilter"  />
+			
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<td>Nome</td>
+						<td>E-mail</td>
+						<td>CPF</td>
+						<td>Telefone</td>
+						<td style="width: 10%">-</td>
+					</tr>
+				</thead>
+				<tbody id="tbParticipantes" >
+					
+				</tbody>
+			</table>
+			
+			
 	</div>
 </body>
 </html>

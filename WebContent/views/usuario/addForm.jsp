@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE>
 <html>
 <head>
@@ -21,7 +22,8 @@
 				</tr>
 				<tr>
 					<td>Nascimento:</td>
-					<td><input type="date" name="nascimento" /></td>
+					<fmt:formatDate value="${usuario.nascimento}" var="dateString" pattern="dd/MM/yyyy" />
+					<td><input type="text" id="nascimento" name="nascimento" value="${dateString}" placeholder="DD/MM/AAAA" /></td>
 					<td><form:errors path="nascimento" /></td>
 				</tr>
 				<tr>
