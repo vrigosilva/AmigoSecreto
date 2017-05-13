@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.fiap.dao.EventoDao;
 import br.com.fiap.dao.UsuarioDao;
 import br.com.fiap.entidades.Evento;
+import br.com.fiap.entidades.ParticipacaoEvento;
 import br.com.fiap.entidades.Usuario;
 
 @Controller
@@ -32,11 +33,11 @@ public class EventoController {
 	@RequestMapping(value="/evento/add")
 	public String add(Evento evento, BindingResult br, RedirectAttributes red) {
 		br.getFieldErrors().forEach(System.out::println);
+		ParticipacaoEvento part = new ParticipacaoEvento();
+		part.setEvento(evento);
+		part.setParticipante(udao.find(1L));
 		
-		Usuario user = udao.find(1L);
-		user.getEventos().add(evento);
-		evento.getParticipantes().add(user);
-		
+		evento.getParticipacoes().add(part);
 		dao.persist(evento);
 		red.addFlashAttribute("msg", "Falta listar !!!");
 		return "redirect:/home";

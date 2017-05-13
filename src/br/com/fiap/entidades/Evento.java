@@ -50,7 +50,7 @@ public class Evento implements Serializable{
 	@Column(name="DATA", nullable=false)
 	private Date data;
 	
-	@OneToMany(mappedBy="evento")
+	@OneToMany(mappedBy="evento", cascade=CascadeType.ALL)
 	private List<ParticipacaoEvento> participacoes = new ArrayList<>(); 
 	
 	public Long getId() {

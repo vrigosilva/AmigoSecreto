@@ -44,11 +44,12 @@ public class UsuarioController {
 	}
 
 
-	@RequestMapping("/usuario/listByEmail")
-	public String listByEmail(String email,ModelMap map) {
+	@RequestMapping(value="/usuario/listByEmail",produces = "application/json")
+	@ResponseBody
+	public Usuario listByEmail(String email,ModelMap map) {
 		Usuario usuario = dao.findByEmail(email);
-		map.addAttribute("usuario", usuario);
-		return "/evento/lteste";
+//		map.addAttribute("usuario", usuario);
+		return usuario;
 	}
 	
 

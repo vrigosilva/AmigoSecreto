@@ -17,10 +17,7 @@
 			$.get( "${pageContext.request.contextPath}/usuario/listByEmail",{ email: emailFilter } )
 			  
 			.done(function( data ) {
-// 			    alert( "Data Loaded: " + data );
-// 			    console.log("SUCCESS: ", data);
 				$("#tbParticipantes").append(data);
-
 			 })
 			  
 			.fail(function() {
