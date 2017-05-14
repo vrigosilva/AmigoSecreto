@@ -13,7 +13,6 @@ import br.com.fiap.dao.EventoDao;
 import br.com.fiap.dao.UsuarioDao;
 import br.com.fiap.entidades.Evento;
 import br.com.fiap.entidades.ParticipacaoEvento;
-import br.com.fiap.entidades.Usuario;
 
 @Controller
 public class EventoController {
@@ -33,13 +32,12 @@ public class EventoController {
 	@RequestMapping(value="/evento/add")
 	public String add(Evento evento, BindingResult br, RedirectAttributes red) {
 		br.getFieldErrors().forEach(System.out::println);
-		ParticipacaoEvento part = new ParticipacaoEvento();
-		part.setEvento(evento);
-		part.setParticipante(udao.find(1L));
 		
-		evento.getParticipacoes().add(part);
+		evento.getParticipacoes().forEach(p -> {p.setEvento(evento); 
+												p.setIsAdmin(false);
+											   });
 		dao.persist(evento);
-		red.addFlashAttribute("msg", "Falta listar !!!");
+//		red.addFlashAttribute("msg", "Falta listar !!!");
 		return "redirect:/home";
 	}
 

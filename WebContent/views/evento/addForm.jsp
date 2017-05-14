@@ -9,20 +9,41 @@
 	
 	<script type="text/javascript">
 	
+	function remove(i){
+		$("[id^=participacoes"+i+"]").remove()
+	}
 	
 		function searchAjax() {
-
+			indice =  $("#participantesIndice").val();
+			if(indice==null ||indice=="" ) indice = 0;
+			indice = parseInt(indice, 10);
 			var emailFilter = $("#emailfilter").prop( "value" );
 		
 			$.get( "${pageContext.request.contextPath}/usuario/listByEmail",{ email: emailFilter } )
 			  
 			.done(function( data ) {
-				$("#tbParticipantes").append(data);
+				
+				if(data != null && data !="" && data !="null"){
+					$("#participantes").append("<input id='participacoes"+indice+".participante.id' name='participacoes["+indice+"].participante.id' type='hidden' value='"+data.id+"'>");
+					
+					$("#tbParticipantes").append("<tr id='participacoes"+indice+"' ><td>"+data.nome+"</td><td>"+data.email+"</td>"+
+							"<td class='td-actions' style='width: 10%'>	<a href='javascript:remove("+indice+");' class='btn btn-danger'> <i class='glyphicon glyphicon-trash'></i></a></td></tr>");
+					$("#participantesIndice").val(indice+1);
+					
+				}else{
+					alert("não entontrado");
+				}
+				
+				
+		
 			 })
 			  
 			.fail(function() {
 			  alert( "error" );
 			});
+		
+			
+			
 		
 		}
 	</script>
@@ -36,6 +57,7 @@
 		<c:url value="/evento/add" var="url" />
 		<form:form  action="${url}" method="post" commandName="evento">
 			<form:hidden path="id" />
+
 			<table>
 				<tr>
 					<td>Nome:</td>
@@ -59,27 +81,30 @@
 					<td><form:errors path="endereco" /></td>
 				</tr>
 			</table>
+			<div id="participantes"></div>
+			<input type="hidden" id="participantesIndice" name="participantesIndice" />
 			<input type="submit" value="Salvar">
 		</form:form>
-			
-			<div onclick="searchAjax()"><i class="glyphicon glyphicon-zoom-in"></i></div>
-			<input type="text" id="emailfilter" name="emailfilter"  />
-			
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<td>Nome</td>
-						<td>E-mail</td>
-						<td>CPF</td>
-						<td>Telefone</td>
-						<td style="width: 10%">-</td>
-					</tr>
-				</thead>
-				<tbody id="tbParticipantes" >
-					
-				</tbody>
-			</table>
-			
+		<br/>
+		<br/>
+		
+		<label title="Email participante">Email participante: </label>
+		<input type="text" id="emailfilter" name="emailfilter" />
+		<i onclick="searchAjax()" class="glyphicon glyphicon-zoom-in"></i>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<td>Nome</td>
+					<td>E-mail</td>
+					<td style="width: 10%">-</td>
+				</tr>
+			</thead>
+			<tbody id="tbParticipantes" >
+				
+			</tbody>
+		</table>
+		
 			
 	</div>
 </body>

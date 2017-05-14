@@ -21,10 +21,6 @@ public class EventoDao {
 	
 
 	public void persist(Evento e) {
-//		Set<Usuario> set = new HashSet<>(); 
-//		e.getParticipantes().forEach(u-> set.add(em.find(Usuario.class,u.getId())));
-//		e.setParticipantes(set);
-		
 		if(e.getId() == null){
 			em.persist(e);
 		}else{
